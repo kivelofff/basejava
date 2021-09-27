@@ -12,18 +12,40 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        storage[counter++]=r;
+        if (!ifExists(r.uuid) && !isFull()) {
+            storage[counter++]=r;
+        } else {
+            System.out.println("resume is not exists or storage if full!");
+        }
     }
 
     Resume get(String uuid) {
-        int pos = getPosition(uuid);
-        return (pos == -1) ? null : storage[pos];
+        if (ifExists(uuid)) {
+            int pos = getPosition(uuid);
+            return (pos == -1) ? null : storage[pos];
+        } else {
+            System.out.println("Resume with uuid: " + uuid + " not found!");
+            return null;
+        }
     }
 
     void delete(String uuid) {
-        int pos = getPosition(uuid);
-        System.arraycopy(storage, pos+1, storage, pos, storage.length-pos-1);
-        counter--;
+        if (ifExists(uuid)) {
+            int pos = getPosition(uuid);
+            System.arraycopy(storage, pos + 1, storage, pos, storage.length - pos - 1);
+            counter--;
+        } else {
+            System.out.println("Resume with uuid: " + uuid + " not found!");
+        }
+    }
+
+    void update(Resume r) {
+        if(ifExists(r.uuid)) {
+            storage[getPosition(r.uuid)] = r;
+        } else {
+            System.out.println("Resume not found!");
+        }
+
     }
 
     /**
@@ -44,5 +66,13 @@ public class ArrayStorage {
             }
         }
         return -1;
+    }
+
+    private boolean ifExists(String uuid) {
+        return getPosition(uuid) != -1;
+    }
+
+    private boolean isFull() {
+        return counter == storage.length-1;
     }
 }

@@ -20,22 +20,22 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        if (ifExists(uuid)) {
-            int pos = getPosition(uuid);
-            return (pos == -1) ? null : storage[pos];
-        } else {
+        int pos = getPosition(uuid);
+        if (pos == -1) {
             System.out.println("Resume with uuid: " + uuid + " not found!");
             return null;
+        } else {
+            return storage[pos];
         }
     }
 
     void delete(String uuid) {
-        if (ifExists(uuid)) {
-            int pos = getPosition(uuid);
+        int pos = getPosition(uuid);
+        if (pos == -1) {
+            System.out.println("Resume with uuid: " + uuid + " not found!");
+        } else {
             System.arraycopy(storage, pos + 1, storage, pos, storage.length - pos - 1);
             counter--;
-        } else {
-            System.out.println("Resume with uuid: " + uuid + " not found!");
         }
     }
 

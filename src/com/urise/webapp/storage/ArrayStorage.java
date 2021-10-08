@@ -10,12 +10,8 @@ import java.util.Arrays;
 public class ArrayStorage extends AbstractArrayStorage {
 
 
-    public void clear() {
-        counter = 0;
-    }
-
-    public void save(Resume r) {
-        if (!ifExists(r.getUuid()) && !isFull()) {
+ public void save(Resume r) {
+        if (!ifExists(r.getUuid()) || !isFull()) {
             storage[counter++]=r;
         } else {
             System.out.println("resume is not exists or storage if full!");
@@ -44,15 +40,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, counter);
-    }
-
-    public int size() {
-        return counter;
-    }
-
-    protected int getPosition(String uuid) {
+  protected int getPosition(String uuid) {
         for (int i = 0; i < counter; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;

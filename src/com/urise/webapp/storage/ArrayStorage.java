@@ -1,49 +1,42 @@
+package com.urise.webapp.storage;
+
+import com.urise.webapp.model.Resume;
+
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
-    private int counter = 0;
+public class ArrayStorage extends AbstractArrayStorage {
 
-    void clear() {
+
+    public void clear() {
         counter = 0;
     }
 
-    void save(Resume r) {
-        if (!ifExists(r.uuid) && !isFull()) {
+    public void save(Resume r) {
+        if (!ifExists(r.getUuid()) && !isFull()) {
             storage[counter++]=r;
         } else {
             System.out.println("resume is not exists or storage if full!");
         }
     }
 
-    Resume get(String uuid) {
+    public void delete(String uuid) {
         int pos = getPosition(uuid);
         if (pos == -1) {
-            System.out.println("Resume with uuid: " + uuid + " not found!");
-            return null;
-        } else {
-            return storage[pos];
-        }
-    }
-
-    void delete(String uuid) {
-        int pos = getPosition(uuid);
-        if (pos == -1) {
-            System.out.println("Resume with uuid: " + uuid + " not found!");
+            System.out.println("com.urise.webapp.model.Resume with uuid: " + uuid + " not found!");
         } else {
             System.arraycopy(storage, pos + 1, storage, pos, storage.length - pos - 1);
             counter--;
         }
     }
 
-    void update(Resume r) {
-        if(ifExists(r.uuid)) {
-            storage[getPosition(r.uuid)] = r;
+    public void update(Resume r) {
+        if(ifExists(r.getUuid())) {
+            storage[getPosition(r.getUuid())] = r;
         } else {
-            System.out.println("Resume not found!");
+            System.out.println("com.urise.webapp.model.Resume not found!");
         }
 
     }
@@ -51,17 +44,17 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, counter);
     }
 
-    int size() {
+    public int size() {
         return counter;
     }
 
-    private int getPosition(String uuid) {
+    protected int getPosition(String uuid) {
         for (int i = 0; i < counter; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return i;
             }
         }

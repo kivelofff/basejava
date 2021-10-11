@@ -10,31 +10,9 @@ import java.util.Arrays;
 public class ArrayStorage extends AbstractArrayStorage {
 
 
- public void save(Resume r) {
-        if (!ifExists(r.getUuid()) || !isFull()) {
-            storage[counter++]=r;
-        } else {
-            System.out.println("resume is not exists or storage if full!");
-        }
-    }
-
-    public void delete(String uuid) {
-        int pos = getPosition(uuid);
-        if (pos == -1) {
-            System.out.println("com.urise.webapp.model.Resume with uuid: " + uuid + " not found!");
-        } else {
-            System.arraycopy(storage, pos + 1, storage, pos, storage.length - pos - 1);
-            counter--;
-        }
-    }
-
-    public void update(Resume r) {
-        if(ifExists(r.getUuid())) {
-            storage[getPosition(r.getUuid())] = r;
-        } else {
-            System.out.println("com.urise.webapp.model.Resume not found!");
-        }
-
+    @Override
+    protected void insertNewResume(Resume r, int pos) {
+        storage[counter]=r;
     }
 
     /**
@@ -47,13 +25,5 @@ public class ArrayStorage extends AbstractArrayStorage {
             }
         }
         return -1;
-    }
-
-    private boolean ifExists(String uuid) {
-        return getPosition(uuid) != -1;
-    }
-
-    private boolean isFull() {
-        return counter == storage.length-1;
     }
 }

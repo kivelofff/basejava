@@ -1,5 +1,7 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.ExistStorageException;
+import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -17,8 +19,7 @@ public abstract class AbstractArrayStorage implements Storage{
     public Resume get(String uuid) {
         int pos = getPosition(uuid);
         if (pos == -1) {
-            System.out.println("com.urise.webapp.model.Resume with uuid: " + uuid + " not found!");
-            return null;
+            throw new NotExistStorageException(uuid);
         } else {
             return storage[pos];
         }
@@ -36,7 +37,7 @@ public abstract class AbstractArrayStorage implements Storage{
     public void update(Resume r) {
         int pos = getPosition(r.getUuid());
         if (pos <0) {
-            System.out.println("Resume doesn't exist!");
+            throw new NotExistStorageException(r.getUuid());
         } else {
             storage[pos]=r;
         }
@@ -45,7 +46,7 @@ public abstract class AbstractArrayStorage implements Storage{
     public void save(Resume r) {
         int pos = getPosition(r.getUuid());
         if (pos >0 || counter == LIMIT) {
-            System.out.println("Resume already exist or storage is full!");
+            throw new ExistStorageException(r.getUuid());
         } else {
             insertNewResume(r, pos);
             counter++;
@@ -57,7 +58,7 @@ public abstract class AbstractArrayStorage implements Storage{
     public void delete(String uuid) {
         int pos = getPosition(uuid);
         if (pos <0) {
-            System.out.println("Resume doesn't exist!");
+            throw new NotExistStorageException(uuid);
         } else {
             if (pos != counter-1) {
                 System.arraycopy(storage, pos + 1, storage, pos, counter - pos - 1);

@@ -13,7 +13,7 @@ public class SortedArrayStorage extends AbstractArrayStorage{
     }
 
     protected void insertNewResume(Resume r, int pos) {
-        System.arraycopy(storage, -pos-1, storage, -pos, counter - pos+1);
+        System.arraycopy(storage, -pos-1, storage, -pos, counter + pos+1);
         storage[-pos-1] = r;
     }
 

@@ -7,7 +7,7 @@ import com.urise.webapp.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage{
-    protected static final int LIMIT = 10000;
+    public static final int LIMIT = 10000;
     protected final Resume[] storage = new Resume[LIMIT];
     protected int counter = 0;
 
@@ -45,7 +45,7 @@ public abstract class AbstractArrayStorage implements Storage{
 
     public void save(Resume r) {
         int pos = getPosition(r.getUuid());
-        if (pos >0 || counter == LIMIT) {
+        if (pos >=0 || counter == LIMIT) {
             throw new ExistStorageException(r.getUuid());
         } else {
             insertNewResume(r, pos);

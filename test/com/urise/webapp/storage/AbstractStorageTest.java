@@ -11,10 +11,10 @@ import org.junit.Test;
 
 public abstract class AbstractStorageTest {
     protected Storage storage;
-    private static final String UUID_1="uuid1";
-    private static final String UUID_2="uuid2";
-    private static final String UUID_3="uuid3";
-    private static final String UUID_4="uuid4";
+    protected static final String UUID_1="uuid1";
+    protected static final String UUID_2="uuid2";
+    protected static final String UUID_3="uuid3";
+    protected static final String UUID_4="uuid4";
 
     public abstract void initStorage();
 
@@ -84,17 +84,4 @@ public abstract class AbstractStorageTest {
         storage.delete(UUID_4);
     }
 
-    @Test(expected = StorageException.class)
-    public void overflow() {
-        storage.clear();
-        try {
-            for (int i = 0; i < AbstractArrayStorage.LIMIT; i++) {
-                storage.save(new Resume());
-            }
-        } catch (Exception e) {
-            System.out.println(storage.size());
-            Assert.fail();
-        }
-        storage.save(new Resume());
-    }
 }

@@ -21,7 +21,7 @@ public class MapStorage extends AbstractStorage {
     @Override
     protected int getPosition(Resume r) {
 
-        return storage.containsKey(r.getUuid())? 1 : 0;
+        return storage.containsKey(r.getUuid())? 1 : -1;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        return (Resume[]) storage.values().toArray();
+        return storage.values().toArray(new Resume[0]);
     }
 
     @Override

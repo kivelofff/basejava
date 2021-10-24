@@ -11,16 +11,17 @@ public class ArrayStorage extends AbstractArrayStorage {
 
 
     @Override
-    protected void insertNewResume(Resume r, int pos) {
+    protected void addElementToArray(Resume r, int pos) {
         storage[counter]=r;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-  protected int getPosition(String uuid) {
+  protected Integer getPosition(Resume r) {
+
         for (int i = 0; i < counter; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
+            if (storage[i].equals(r)) {
                 return i;
             }
         }

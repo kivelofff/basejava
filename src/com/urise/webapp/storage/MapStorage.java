@@ -19,29 +19,32 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getPosition(Resume r) {
+    protected Resume getPosition(Resume r) {
 
-        return storage.containsKey(r.getUuid())? 1 : -1;
+        return storage.containsKey(r.getUuid())? r : null;
     }
 
     @Override
-    protected void addElement(Resume r) {
+    protected void addElement(Resume r, Object pos) {
         storage.put(r.getUuid(), r);
     }
 
     @Override
-    protected Resume getElement(String uuid) {
+    protected Resume getElement(Object pos) {
+        String uuid = ((Resume)pos).getUuid();
         return storage.get(uuid);
     }
 
     @Override
-    protected void removeElement(String uuid) {
+    protected void removeElement(Object pos) {
+        String uuid = ((Resume)pos).getUuid();
         storage.remove(uuid);
     }
 
     @Override
-    protected void replaceElement(Resume r) {
-        addElement(r);
+    protected void replaceElement(Resume r, Object pos) {
+        String uuid = ((Resume)pos).getUuid();
+        storage.put(uuid, r);
     }
 
     @Override

@@ -20,28 +20,29 @@ public class ListStorage extends AbstractStorage{
     }
 
     @Override
-    protected int getPosition(Resume r) {
+    protected Integer getPosition(Resume r) {
         return Collections.binarySearch(storage, r);
     }
 
     @Override
-    protected void addElement(Resume r) {
-        storage.add(r);
+    protected void addElement(Resume r, Object pos) {
+        storage.add((Integer) pos, r);
     }
 
     @Override
-    protected Resume getElement(String uuid) {
-        return storage.get(getPosition(uuid));
+    protected Resume getElement(Object pos) {
+        return storage.get((Integer)pos);
     }
 
     @Override
-    protected void removeElement(String uuid) {
-        storage.remove(new Resume(uuid));
+    protected void removeElement(Object pos) {
+        storage.remove((Integer)pos);
     }
 
     @Override
-    protected void replaceElement(Resume r) {
-        storage.add(getPosition(r), r);
+    protected void replaceElement(Resume r, Object pos) {
+        storage.add((Integer)pos, r);
+
     }
 
     @Override

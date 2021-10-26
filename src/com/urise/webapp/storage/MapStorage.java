@@ -1,8 +1,8 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
-import java.util.Collection;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
@@ -19,31 +19,31 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getPosition(Resume r) {
+    protected String getPosition(Resume r) {
 
-        return storage.containsKey(r.getUuid())? r : null;
+        return storage.containsKey(r.getUuid())? r.getUuid() : new String();
     }
 
     @Override
     protected void addElement(Resume r, Object pos) {
-        storage.put(r.getUuid(), r);
+        storage.put((String)pos, r);
     }
 
     @Override
     protected Resume getElement(Object pos) {
-        String uuid = ((Resume)pos).getUuid();
+        String uuid = (String) pos;
         return storage.get(uuid);
     }
 
     @Override
     protected void removeElement(Object pos) {
-        String uuid = ((Resume)pos).getUuid();
+        String uuid = (String) pos;
         storage.remove(uuid);
     }
 
     @Override
     protected void replaceElement(Resume r, Object pos) {
-        String uuid = ((Resume)pos).getUuid();
+        String uuid = (String) pos;
         storage.put(uuid, r);
     }
 
@@ -55,5 +55,23 @@ public class MapStorage extends AbstractStorage {
     @Override
     public int size() {
         return storage.size();
+    }
+
+    @Override
+    protected Object findIfExists(String uuid) {
+        String pos = (String) getPosition(uuid);
+        if (pos.isEmpty()) {
+            throw new NotExistStorageException(uuid);
+        }
+        return pos;
+    }
+
+    @Override
+    protected Object checkIfNotExists(String uuid) {
+        String pos = (String) getPosition(uuid);
+        if (!pos.isEmpty()) {
+            throw new NotExistStorageException(uuid);
+        }
+        return uuid;
     }
 }

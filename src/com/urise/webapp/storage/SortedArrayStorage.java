@@ -11,8 +11,9 @@ public class SortedArrayStorage extends AbstractArrayStorage{
     }
 
     protected void addElementToArray(Resume r, int pos) {
-        System.arraycopy(storage, pos, storage, pos+1, counter -1 - pos);
+        System.arraycopy(storage, pos, storage, pos+1, counter - pos);
         storage[pos] = r;
+        counter++;
     }
 
 }

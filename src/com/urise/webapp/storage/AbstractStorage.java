@@ -18,7 +18,7 @@ public abstract class AbstractStorage implements Storage{
 
     @Override
     public void save(Resume r) {
-        int pos = checkIfNotExists(r.getUuid());
+        Integer pos = (Integer)checkIfNotExists(r.getUuid());
         addElement(r, pos);
     }
 
@@ -53,16 +53,16 @@ public abstract class AbstractStorage implements Storage{
     @Override
     public abstract int size();
 
-    private Integer findIfExists(String uuid) {
-        int pos = (Integer)getPosition(uuid);
+    protected Object findIfExists(String uuid) {
+        Integer pos = (Integer)getPosition(uuid);
         if (pos<0) {
             throw new NotExistStorageException(uuid);
         }
         return pos;
     }
 
-    private Integer checkIfNotExists(String uuid) {
-        int pos = (Integer)getPosition(uuid);
+    protected Object checkIfNotExists(String uuid) {
+        Integer pos = (Integer)getPosition(uuid);
         if (pos>=0) {
             throw new ExistStorageException(uuid);
         }

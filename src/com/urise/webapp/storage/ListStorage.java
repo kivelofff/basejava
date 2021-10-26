@@ -36,7 +36,8 @@ public class ListStorage extends AbstractStorage{
 
     @Override
     protected void removeElement(Object pos) {
-        storage.remove((Integer)pos);
+        int index = (Integer)pos;
+        storage.remove(index);
     }
 
     @Override

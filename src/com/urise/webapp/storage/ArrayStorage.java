@@ -12,7 +12,7 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void addElementToArray(Resume r, int pos) {
-        storage[counter]=r;
+        storage[counter++]=r;
     }
 
     /**

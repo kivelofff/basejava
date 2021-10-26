@@ -1,5 +1,6 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
@@ -70,7 +71,7 @@ public class MapStorage extends AbstractStorage {
     protected Object checkIfNotExists(String uuid) {
         String pos = (String) getPosition(uuid);
         if (!pos.isEmpty()) {
-            throw new NotExistStorageException(uuid);
+            throw new ExistStorageException(uuid);
         }
         return uuid;
     }

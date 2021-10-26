@@ -18,7 +18,7 @@ public abstract class AbstractStorage implements Storage{
 
     @Override
     public void save(Resume r) {
-        Integer pos = (Integer)checkIfNotExists(r.getUuid());
+        Object pos = checkIfNotExists(r.getUuid());
         addElement(r, pos);
     }
 

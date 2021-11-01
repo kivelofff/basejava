@@ -15,6 +15,10 @@ public abstract class AbstractStorageTest {
     protected static final String UUID_2="uuid2";
     protected static final String UUID_3="uuid3";
     protected static final String UUID_4="uuid4";
+    protected static final Resume RESUME_1 = new Resume(UUID_1);
+    protected static final Resume RESUME_2 = new Resume(UUID_2);
+    protected static final Resume RESUME_3 = new Resume(UUID_3);
+    protected static final Resume RESUME_4 = new Resume(UUID_4);
 
     public abstract void initStorage();
 
@@ -24,9 +28,9 @@ public abstract class AbstractStorageTest {
             initStorage();
         }
         storage.clear();
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+        storage.save(RESUME_1);
+        storage.save(RESUME_2);
+        storage.save(RESUME_3);
     }
 
     @Test
@@ -66,7 +70,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void save() {
-        storage.save(new Resume(UUID_4));
+        storage.save(RESUME_4);
         Assert.assertEquals(new Resume(UUID_4), storage.get(UUID_4));
     }
     @Test(expected = ExistStorageException.class)

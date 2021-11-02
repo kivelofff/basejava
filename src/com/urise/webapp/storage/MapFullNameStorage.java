@@ -4,14 +4,24 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Map;
 
-public class MapFullNameStorage extends MapStorage{
-    public MapFullNameStorage(Map<String, Resume> storage) {
-        super(storage);
-    }
+public class MapFullNameStorage extends AbstractMapStorage{
+
 
     @Override
     protected String getPosition(Resume r) {
         return storage.containsKey(r.getFullName())? r.getFullName() : new String();
+    }
+
+    @Override
+    public void save(Resume r) {
+        Object pos = checkIfNotExists(r.getFullName());
+        addElement(r, pos);
+    }
+
+    @Override
+    public void update(Resume r) {
+        findIfExists(r.getFullName());
+        replaceElement(r, findIfExists(r.getFullName()));
     }
 
     @Override

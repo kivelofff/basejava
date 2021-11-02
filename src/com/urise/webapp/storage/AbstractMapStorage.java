@@ -4,25 +4,15 @@ import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
-
-    protected final Map<String, Resume> storage;
-
-    public MapStorage(Map<String, Resume> storage) {
-        this.storage = storage;
-    }
+public abstract class AbstractMapStorage extends AbstractStorage{
+    protected final Map<String, Resume> storage = new HashMap<>();
 
     @Override
     public void clear() {
         storage.clear();
-    }
-
-    @Override
-    protected String getPosition(Resume r) {
-
-        return storage.containsKey(r.getUuid())? r.getUuid() : new String();
     }
 
     @Override

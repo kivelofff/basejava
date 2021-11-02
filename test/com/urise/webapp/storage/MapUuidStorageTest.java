@@ -1,17 +1,14 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
-import org.junit.Assert;
-
-import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
-public class MapStorageTest extends AbstractStorageTest{
+public class MapUuidStorageTest extends AbstractStorageTest{
 
     @Override
     public void initStorage() {
-        this.storage = new MapStorage(new HashMap<>());
+        this.storage = new MapUuidStorage();
     }
 
     @Override

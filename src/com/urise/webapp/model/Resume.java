@@ -1,5 +1,6 @@
 package com.urise.webapp.model;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -63,4 +64,6 @@ public class Resume implements Comparable<Resume> {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
+    public static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getUuid).thenComparing(Resume::getFullName);
 }

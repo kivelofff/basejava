@@ -13,8 +13,8 @@ public class MapUuidStorageTest extends AbstractStorageTest{
 
     @Override
     public void getAll() {
-        assertEquals(storage.get(UUID_1), new Resume(UUID_1));
-        assertEquals(storage.get(UUID_2), new Resume(UUID_2));
-        assertEquals(storage.get(UUID_3), new Resume(UUID_3));
+        assertEquals(storage.get(UUID_1), new Resume(UUID_1, FULL_NAME_1));
+        assertEquals(storage.get(UUID_2), new Resume(UUID_2, FULL_NAME_2));
+        assertEquals(storage.get(UUID_3), new Resume(UUID_3, FULL_NAME_3));
     }
 }

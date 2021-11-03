@@ -21,7 +21,7 @@ public class ArrayStorage extends AbstractArrayStorage {
   protected Integer getPosition(Resume r) {
 
         for (int i = 0; i < counter; i++) {
-            if (storage[i].equals(r)) {
+            if (storage[i].getUuid().equals(r.getUuid())) {
                 return i;
             }
         }

@@ -4,16 +4,19 @@ import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
+import java.util.Collections;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage{
 
 
     @Override
     public abstract void clear();
 
-    protected abstract Object getPosition(Resume r);
+    protected abstract Object getPosition(Resume r) ;
 
     protected Object getPosition(String uuid) {
-        return getPosition(new Resume(uuid));
+        return getPosition(new Resume(uuid, ""));
     }
 
     @Override
@@ -47,8 +50,14 @@ public abstract class AbstractStorage implements Storage{
 
     protected abstract void replaceElement(Resume r, Object pos);
 
-    @Override
-    public abstract Resume[] getAll();
+    public List<Resume> getAllSorted() {
+        List<Resume> list = getAllElements();
+        Collections.sort(list);
+        return list;
+    }
+
+    protected abstract List<Resume> getAllElements();
+
 
     @Override
     public abstract int size();

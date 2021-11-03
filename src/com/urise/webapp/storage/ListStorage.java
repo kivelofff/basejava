@@ -2,7 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class ListStorage extends AbstractStorage{
 
     @Override
     protected Integer getPosition(Resume r) {
-        return Collections.binarySearch(storage, r);
+        return Collections.binarySearch(storage, r, Resume.RESUME_UUID_COMPARATOR);
     }
 
     @Override
@@ -47,8 +47,8 @@ public class ListStorage extends AbstractStorage{
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.toArray(new Resume[0]);
+    protected List<Resume> getAllElements() {
+        return new ArrayList<>(List.copyOf(storage));
     }
 
     @Override

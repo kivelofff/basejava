@@ -4,6 +4,7 @@ import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
+import java.util.List;
 import java.util.Map;
 
 public class MapUuidStorage extends AbstractMapStorage {
@@ -14,6 +15,7 @@ public class MapUuidStorage extends AbstractMapStorage {
 
         return storage.containsKey(r.getUuid())? r.getUuid() : new String();
     }
+
 
 
 }

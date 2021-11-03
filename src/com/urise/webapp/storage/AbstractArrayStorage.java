@@ -1,10 +1,11 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int LIMIT = 10000;
@@ -22,8 +23,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return storage[(Integer)pos];
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, counter);
+    protected List<Resume> getAllElements() {
+         return Arrays.asList(Arrays.copyOf(storage, counter));
     }
 
     public int size() {

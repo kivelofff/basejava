@@ -9,6 +9,24 @@ import java.util.Map;
 
 public class MapUuidStorage extends AbstractMapStorage {
 
+    @Override
+    protected Object findIfExists(Object uuid) {
+        String pos = (String) getPosition((String)uuid);
+        if (pos.isEmpty()) {
+            throw new NotExistStorageException((String)uuid);
+        }
+        return pos;
+    }
+
+    @Override
+    protected Object checkIfNotExists(Object uuid) {
+        String pos = (String) getPosition((String)uuid);
+        if (!pos.isEmpty()) {
+            throw new ExistStorageException((String)uuid);
+        }
+        return uuid;
+    }
+
 
     @Override
     protected String getPosition(Resume r) {

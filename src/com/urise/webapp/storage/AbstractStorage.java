@@ -62,18 +62,20 @@ public abstract class AbstractStorage implements Storage{
     @Override
     public abstract int size();
 
-    protected Object findIfExists(String uuid) {
-        Integer pos = (Integer)getPosition(uuid);
+    protected Object findIfExists(Object k) {
+        String key = (String)k;
+        Integer pos = (Integer)getPosition(key);
         if (pos<0) {
-            throw new NotExistStorageException(uuid);
+            throw new NotExistStorageException(key);
         }
         return pos;
     }
 
-    protected Object checkIfNotExists(String uuid) {
-        Integer pos = (Integer)getPosition(uuid);
+    protected Object checkIfNotExists(Object k) {
+        String key = (String)k;
+        Integer pos = (Integer)getPosition(key);
         if (pos>=0) {
-            throw new ExistStorageException(uuid);
+            throw new ExistStorageException(key);
         }
         return -(pos+1);
     }

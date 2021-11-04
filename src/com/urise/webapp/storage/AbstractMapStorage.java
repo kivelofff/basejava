@@ -50,21 +50,4 @@ public abstract class AbstractMapStorage extends AbstractStorage{
         return storage.size();
     }
 
-    @Override
-    protected Object findIfExists(String uuid) {
-        String pos = (String) getPosition(uuid);
-        if (pos.isEmpty()) {
-            throw new NotExistStorageException(uuid);
-        }
-        return pos;
-    }
-
-    @Override
-    protected Object checkIfNotExists(String uuid) {
-        String pos = (String) getPosition(uuid);
-        if (!pos.isEmpty()) {
-            throw new ExistStorageException(uuid);
-        }
-        return uuid;
-    }
 }

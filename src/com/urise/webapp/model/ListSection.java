@@ -25,5 +25,13 @@ public class ListSection implements Section{
         return info.remove(s);
     }
 
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(TYPE).append(System.lineSeparator());
+        for(String s: info) {
+            sb.append(s).append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
 }

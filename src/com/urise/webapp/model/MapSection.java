@@ -28,7 +28,7 @@ public class MapSection<T> implements Section{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(TYPE);
+        sb.append(TYPE).append(System.lineSeparator());
         for (Map.Entry<T, String> e : info.entrySet()){
             sb.append(e.getKey()).append(": ").append(e.getValue()).append(System.lineSeparator());
         }

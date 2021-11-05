@@ -1,6 +1,8 @@
 package com.urise.webapp.model;
 
+import java.awt.datatransfer.StringSelection;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,15 +15,28 @@ public class Resume implements Comparable<Resume> {
     private String uuid;
     private String fullName;
 
+    public Contacts contacts;
+    public HashMap<SectionType, Section> sections;
+
+
     public Resume(String uuid) {
+        Objects.requireNonNull(uuid, "uuid must be not null");
         this.uuid = uuid;
+        this.contacts = new Contacts();
+        this.sections = new HashMap<>();
+        sections.put(SectionType.EXPERIENCE, new MapSection<>(SectionType.EXPERIENCE));
+        sections.put(SectionType.EDUCATION, new MapSection<>(SectionType.EDUCATION));
+        sections.put(SectionType.QUALIFICATIONS, new ListSection(SectionType.QUALIFICATIONS));
+        sections.put(SectionType.ACHIEVE, new ListSection(SectionType.ACHIEVE));
+        sections.put(SectionType.PERSONAL, new StringSection(SectionType.PERSONAL));
+        sections.put(SectionType.OBJECTIVE, new StringSection(SectionType.OBJECTIVE));
     }
 
     public Resume(String uuid, String fullName) {
-        Objects.requireNonNull(uuid, "uuid must be not null");
+        this(uuid);
         Objects.requireNonNull(fullName, "fullname must be not null");
-        this.uuid = uuid;
         this.fullName = fullName;
+
     }
 
     public Resume() {
@@ -30,7 +45,15 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public String toString() {
-        return uuid;
+        StringBuilder sb = new StringBuilder();
+        sb.append(uuid)
+                .append(System.lineSeparator())
+                .append(fullName)
+                .append(System.lineSeparator())
+                .append(contacts).append(System.lineSeparator());
+
+
+        return sb.toString();
     }
 
     @Override

@@ -64,7 +64,7 @@ public abstract class AbstractStorage<T> implements Storage{
 
     protected T findIfExists(String k) {
         T pos = getPosition(k);
-        if (pos<0) {
+        if (!isExists(pos)) {
             throw new NotExistStorageException(k);
         }
         return pos;
@@ -72,10 +72,12 @@ public abstract class AbstractStorage<T> implements Storage{
 
     protected T checkIfNotExists(String k) {
         T pos = getPosition(k);
-        if (pos>=0) {
+        if (isExists(pos)) {
             throw new ExistStorageException(k);
         }
-        return -(pos+1);
+        return pos;
     }
+
+    protected abstract boolean isExists(T pos);
 
 }

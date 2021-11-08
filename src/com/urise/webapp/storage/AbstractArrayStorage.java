@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int LIMIT = 10000;
     protected final Resume[] storage = new Resume[LIMIT];
     protected int counter = 0;
@@ -18,9 +18,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         counter = 0;
     }
 
-    public Resume getElement(Object pos) {
+    public Resume getElement(Integer pos) {
 
-        return storage[(Integer)pos];
+        return storage[pos];
     }
 
     protected List<Resume> getAllElements() {
@@ -32,32 +32,34 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
 
-    public void replaceElement(Resume r, Object pos) {
+    public void replaceElement(Resume r, Integer pos) {
 
-        storage[(Integer)pos] = r;
+        storage[pos] = r;
 
     }
 
-    public void addElement(Resume r, Object pos) {
+    public void addElement(Resume r, Integer pos) {
         if (counter == LIMIT) {
             throw new StorageException("Storage is full!", r.getUuid());
         }
-        addElementToArray(r, (Integer)pos);
+        addElementToArray(r, pos);
 
 
     }
 
     @Override
-    public void removeElement(Object pos) {
-        Integer position = (Integer)pos;
-        System.arraycopy(storage, position + 1, storage, position, counter - position - 1);
+    public void removeElement(Integer pos) {
+        System.arraycopy(storage, pos + 1, storage, pos, counter - pos - 1);
         storage[counter - 1] = null;
         counter--;
 
 
     }
 
-    protected abstract void addElementToArray(Resume r, int pos);
+    protected abstract void addElementToArray(Resume r, Integer pos);
 
-
+    @Override
+    protected boolean isExists(Integer pos) {
+        return pos>=0;
+    }
 }

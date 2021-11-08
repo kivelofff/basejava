@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage{
+public class ListStorage extends AbstractStorage<Integer>{
 
     private final List<Resume> storage;
 
@@ -25,24 +25,24 @@ public class ListStorage extends AbstractStorage{
     }
 
     @Override
-    protected void addElement(Resume r, Object pos) {
-        storage.add((Integer) pos, r);
+    protected void addElement(Resume r, Integer pos) {
+        storage.add(r);
     }
 
     @Override
-    protected Resume getElement(Object pos) {
-        return storage.get((Integer)pos);
+    protected Resume getElement(Integer pos) {
+        return storage.get(pos);
     }
 
     @Override
-    protected void removeElement(Object pos) {
+    protected void removeElement(Integer pos) {
         int index = (Integer)pos;
         storage.remove(index);
     }
 
     @Override
-    protected void replaceElement(Resume r, Object pos) {
-        storage.add((Integer)pos, r);
+    protected void replaceElement(Resume r, Integer pos) {
+        storage.add(pos, r);
 
     }
 
@@ -54,5 +54,10 @@ public class ListStorage extends AbstractStorage{
     @Override
     public int size() {
         return storage.size();
+    }
+
+    @Override
+    protected boolean isExists(Integer pos) {
+        return pos>=0;
     }
 }

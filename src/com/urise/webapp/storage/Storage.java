@@ -4,7 +4,7 @@ import com.urise.webapp.model.Resume;
 
 import java.util.List;
 
-public interface Storage {
+public interface Storage<T> {
     void clear();
     void save(Resume r);
     Resume get(String uuid);

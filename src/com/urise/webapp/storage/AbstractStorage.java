@@ -7,25 +7,25 @@ import com.urise.webapp.model.Resume;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractStorage implements Storage{
+public abstract class AbstractStorage<T> implements Storage{
 
 
     @Override
     public abstract void clear();
 
-    protected abstract Object getPosition(Resume r) ;
+    protected abstract T getPosition(Resume r) ;
 
-    protected Object getPosition(String uuid) {
+    protected T getPosition(String uuid) {
         return getPosition(new Resume(uuid, ""));
     }
 
     @Override
     public void save(Resume r) {
-        Object pos = checkIfNotExists(r.getUuid());
+        T pos = checkIfNotExists(r.getUuid());
         addElement(r, pos);
     }
 
-    protected abstract void addElement(Resume r, Object pos);
+    protected abstract void addElement(Resume r, T pos);
 
     @Override
     public Resume get(String uuid) {
@@ -33,14 +33,14 @@ public abstract class AbstractStorage implements Storage{
         return getElement(findIfExists(uuid));
     }
 
-    protected abstract Resume getElement(Object pos);
+    protected abstract Resume getElement(T pos);
 
     @Override
     public void delete(String uuid) {
         removeElement(findIfExists(uuid));
     }
 
-    protected abstract void removeElement(Object pos);
+    protected abstract void removeElement(T pos);
 
     @Override
     public void update(Resume r) {
@@ -48,7 +48,7 @@ public abstract class AbstractStorage implements Storage{
         replaceElement(r, findIfExists(r.getUuid()));
     }
 
-    protected abstract void replaceElement(Resume r, Object pos);
+    protected abstract void replaceElement(Resume r, T pos);
 
     public List<Resume> getAllSorted() {
         List<Resume> list = getAllElements();
@@ -62,20 +62,18 @@ public abstract class AbstractStorage implements Storage{
     @Override
     public abstract int size();
 
-    protected Object findIfExists(Object k) {
-        String key = (String)k;
-        Integer pos = (Integer)getPosition(key);
+    protected T findIfExists(String k) {
+        T pos = getPosition(k);
         if (pos<0) {
-            throw new NotExistStorageException(key);
+            throw new NotExistStorageException(k);
         }
         return pos;
     }
 
-    protected Object checkIfNotExists(Object k) {
-        String key = (String)k;
-        Integer pos = (Integer)getPosition(key);
+    protected T checkIfNotExists(String k) {
+        T pos = getPosition(k);
         if (pos>=0) {
-            throw new ExistStorageException(key);
+            throw new ExistStorageException(k);
         }
         return -(pos+1);
     }

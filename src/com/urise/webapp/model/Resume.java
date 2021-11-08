@@ -1,10 +1,7 @@
 package com.urise.webapp.model;
 
 import java.awt.datatransfer.StringSelection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Initial resume class
@@ -39,6 +36,27 @@ public class Resume implements Comparable<Resume> {
 
     }
 
+    public Resume(String uuid,
+                  String fullName,
+                  Map<Contacts.CONTACT_TYPE, String> contacts,
+                  Map<String, String> experience,
+                  Map<String, String> education,
+                  List<String> qualifications,
+                  List<String> achieve,
+                  String personal,
+                  String objective) {
+        this.uuid = uuid;
+        this.fullName = fullName;
+        this.contacts = new Contacts(contacts);
+        this.sections = new HashMap<>();
+        sections.put(SectionType.EXPERIENCE, new MapSection<>(experience, SectionType.EXPERIENCE));
+        sections.put(SectionType.EDUCATION, new MapSection<>(education, SectionType.EDUCATION));
+        sections.put(SectionType.QUALIFICATIONS, new ListSection(qualifications, SectionType.QUALIFICATIONS));
+        sections.put(SectionType.ACHIEVE, new ListSection(achieve, SectionType.ACHIEVE));
+        sections.put(SectionType.PERSONAL, new StringSection(personal, SectionType.PERSONAL));
+        sections.put(SectionType.OBJECTIVE, new StringSection(objective, SectionType.OBJECTIVE));
+    }
+
     public Resume() {
         this(UUID.randomUUID().toString());
     }
@@ -51,7 +69,9 @@ public class Resume implements Comparable<Resume> {
                 .append(fullName)
                 .append(System.lineSeparator())
                 .append(contacts).append(System.lineSeparator());
-
+        for (Map.Entry<SectionType, Section> e : sections.entrySet()) {
+            sb.append(e.getValue()).append(System.lineSeparator());
+        }
 
         return sb.toString();
     }

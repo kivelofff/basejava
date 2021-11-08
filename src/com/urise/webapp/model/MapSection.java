@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class MapSection<T> implements Section{
     protected final SectionType TYPE;
-    protected final HashMap<T, String> info;
+    protected final Map<T, String> info;
 
-    public MapSection(HashMap<T, String> info, SectionType type) {
+    public MapSection(Map<T, String> info, SectionType type) {
         this.info = info;
         TYPE = type;
     }

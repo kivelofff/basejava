@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class AbstractStorage<T> implements Storage{
-    private static Logger logger = Logger.getLogger(AbstractStorage.class.getName());
+    private Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Override
     public abstract void clear();
@@ -22,7 +22,7 @@ public abstract class AbstractStorage<T> implements Storage{
 
     @Override
     public void save(Resume r) {
-        logger.info("save resume " + r);
+        logger.info("save resume uuid" + r.getUuid());
         T pos = checkIfNotExists(r.getUuid());
         addElement(r, pos);
     }

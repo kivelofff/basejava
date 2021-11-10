@@ -11,6 +11,7 @@ import java.util.Map;
 public class MapUuidStorage extends AbstractStorage<String> {
     protected final Map<String, Resume> storage = new HashMap<>();
 
+
     @Override
     public void clear() {
         storage.clear();

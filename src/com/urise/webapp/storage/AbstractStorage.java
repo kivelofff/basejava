@@ -6,9 +6,10 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class AbstractStorage<T> implements Storage{
-
+    private static Logger logger = Logger.getLogger(AbstractStorage.class.getName());
 
     @Override
     public abstract void clear();
@@ -21,6 +22,7 @@ public abstract class AbstractStorage<T> implements Storage{
 
     @Override
     public void save(Resume r) {
+        logger.info("save resume " + r);
         T pos = checkIfNotExists(r.getUuid());
         addElement(r, pos);
     }
@@ -29,7 +31,7 @@ public abstract class AbstractStorage<T> implements Storage{
 
     @Override
     public Resume get(String uuid) {
-
+        logger.info("get resume uuid = " + uuid);
         return getElement(findIfExists(uuid));
     }
 
@@ -37,6 +39,7 @@ public abstract class AbstractStorage<T> implements Storage{
 
     @Override
     public void delete(String uuid) {
+        logger.info("delete resume: " + uuid );
         removeElement(findIfExists(uuid));
     }
 
@@ -44,6 +47,7 @@ public abstract class AbstractStorage<T> implements Storage{
 
     @Override
     public void update(Resume r) {
+        logger.info("update resume: " + r);
         findIfExists(r.getUuid());
         replaceElement(r, findIfExists(r.getUuid()));
     }
@@ -51,6 +55,7 @@ public abstract class AbstractStorage<T> implements Storage{
     protected abstract void replaceElement(Resume r, T pos);
 
     public List<Resume> getAllSorted() {
+        logger.info("get all");
         List<Resume> list = getAllElements();
         Collections.sort(list);
         return list;

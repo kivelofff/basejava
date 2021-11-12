@@ -3,11 +3,11 @@ package com.urise.webapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrganisationSection {
+public class OrganisationSection implements Section {
     private List<Organisation> organisations;
 
-    public OrganisationSection() {
-        organisations = new ArrayList<>();
+    public OrganisationSection(List<Organisation> organisations) {
+        this.organisations = organisations;
     }
 
     public List<Organisation> getOrganisations() {

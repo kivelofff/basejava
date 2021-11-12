@@ -1,19 +1,12 @@
 package com.urise.webapp.model;
 
+import java.util.Objects;
+
 public class StringSection implements Section{
-    protected final SectionType TYPE;
     private String info;
 
-    public StringSection(String info, SectionType TYPE) {
-        this.info = info;
-        this.TYPE = TYPE;
-    }
-
-    public StringSection(SectionType TYPE) {
-        this.TYPE = TYPE;
-    }
-
-    public void setInfo(String info) {
+    public StringSection(String info) {
+        Objects.requireNonNull(info, "content must be not null!");
         this.info = info;
     }
 
@@ -23,8 +16,23 @@ public class StringSection implements Section{
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(TYPE).append(System.lineSeparator()).append(info).append(System.lineSeparator());
-        return sb.toString();
+        return "StringSection{" +
+                "info='" + info + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StringSection that = (StringSection) o;
+
+        return info.equals(that.info);
+    }
+
+    @Override
+    public int hashCode() {
+        return info.hashCode();
     }
 }

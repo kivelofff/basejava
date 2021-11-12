@@ -4,17 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListSection implements Section{
-    protected final SectionType TYPE;
+
     protected List<String> info;
 
-    public ListSection(List<String> info, SectionType TYPE) {
+    public ListSection(List<String> info) {
         this.info = info;
-        this.TYPE = TYPE;
     }
 
-    public ListSection(SectionType TYPE) {
+    public ListSection() {
         this.info = new ArrayList<>();
-        this.TYPE = TYPE;
     }
 
     public void addElement(String s) {
@@ -27,11 +25,23 @@ public class ListSection implements Section{
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(TYPE).append(System.lineSeparator());
-        for(String s: info) {
-            sb.append(s).append(System.lineSeparator());
-        }
-        return sb.toString();
+        return "ListSection{" +
+                "info=" + info +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ListSection that = (ListSection) o;
+
+        return info.equals(that.info);
+    }
+
+    @Override
+    public int hashCode() {
+        return info.hashCode();
     }
 }

@@ -1,10 +1,13 @@
 package com.urise.webapp.model;
 
+import java.util.Objects;
+
 public class Link {
     private final String name;
     private final String url;
 
     public Link(String name, String url) {
+        Objects.requireNonNull(name, "name should be not null");
         this.name = name;
         this.url = url;
     }

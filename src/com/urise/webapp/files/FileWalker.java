@@ -16,12 +16,11 @@ public class FileWalker {
 
         } else {
             List<String> output = new ArrayList<>();
-            String[] currentDir = file.list();
+            File[] currentDir = file.listFiles();
             if (currentDir != null) {
                 for (int i = 0; i < currentDir.length; i++) {
-                    File f = new File(currentDir[i]);
+                    File f = currentDir[i];
                     if (f.isFile()) {
-
                             output.add(f.getAbsolutePath());
                     } else {
                         output.addAll(getFiles(f));
@@ -37,6 +36,7 @@ public class FileWalker {
     public static void main(String[] args) {
 
         List<String> files = getFiles(new File(".//"));
+        //List<String> files = getFiles(new File("C:\\test\\wlk"));
         for (String s: files) {
             System.out.println(s);
         }

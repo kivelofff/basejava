@@ -16,16 +16,9 @@ public class ResumeTest {
     private static final String EMAIL = "gizn@schastya.net";
     private static final String HOMEPAGE = "www.kakbynesdohnut.com";
 
-    private static final Organisation PLACE_OF_STUDY = new Organisation(new Link("Sharaga", "www.sharaga.com"),
-            LocalDate.of(2004, 8, 1),
-            LocalDate.of(2010, 1, 1),
-            null,
-            "Lost time");
-    private static  final Organisation PLACE_OF_WORK = new Organisation(new Link("Roga i Koputa", null),
-            LocalDate.of(2011, 6, 1),
-            LocalDate.of(2019, 9, 15),
-            "Laborant",
-            "Stupiest laborant in the world");
+    private static final Organisation PLACE_OF_STUDY = new Organisation(new Link("Sharaga", "www.sharaga.com"));
+
+    private static  final Organisation PLACE_OF_WORK = new Organisation(new Link("Roga i Koputa", null));
 
     private static final List<String> QUALIFICATION = new ArrayList<>();
     private static final List<String> ACHIEVE = new ArrayList<>();
@@ -33,7 +26,15 @@ public class ResumeTest {
     private static final String OBJECTIVE = "objective1, objective2";
 
     static {
-
+        PLACE_OF_STUDY.addPosition(LocalDate.of(2004, 8, 1),
+                LocalDate.of(2010, 1, 1),
+                "Student",
+                "Lost time");
+        PLACE_OF_WORK.addPosition(
+                LocalDate.of(2011, 6, 1),
+                LocalDate.of(2019, 9, 15),
+                "Laborant",
+                "Stupiest laborant in the world");
         QUALIFICATION.add("great man");
         QUALIFICATION.add("ugly developer");
 

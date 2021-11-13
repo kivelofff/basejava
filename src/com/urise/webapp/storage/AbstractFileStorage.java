@@ -5,6 +5,7 @@ import com.urise.webapp.model.Resume;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,7 +25,13 @@ public abstract class AbstractFileStorage extends AbstractStorage<File>{
 
     @Override
     public void clear() {
+        //get all files
+        //delete
 
+        File[] files = directory.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            files[i].delete();
+        }
     }
 
     @Override
@@ -45,12 +52,19 @@ public abstract class AbstractFileStorage extends AbstractStorage<File>{
     protected abstract void doWrite(Resume r, File file) throws IOException;
 
     @Override
-    protected Resume getElement(File pos) {
-        return null;
+    protected Resume getElement(File file) {
+        if (!file.canRead()) {
+            throw new IllegalArgumentException(file.getAbsolutePath() + " is not acessible");
+        }
+        //do read
+        return doRead(file);
     }
 
+    protected abstract Resume doRead(File file);
+
     @Override
-    protected void removeElement(File pos) {
+    protected void removeElement(File file) {
+        file.delete();
 
     }
 
@@ -66,12 +80,20 @@ public abstract class AbstractFileStorage extends AbstractStorage<File>{
 
     @Override
     protected List<Resume> getAllElements() {
-        return null;
+        List<Resume> allResumes = new ArrayList<>();
+        File[] files = directory.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            allResumes.add(doRead(files[i]));
+        }
+        //do read for all
+        return allResumes;
     }
 
     @Override
     public int size() {
-        return 0;
+        File[] files = directory.listFiles();
+        //calculate number of files in folder
+        return files != null ? files.length : 0;
     }
 
     @Override

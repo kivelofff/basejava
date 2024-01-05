@@ -1,28 +1,33 @@
+package com.basejava.webapp;
+
+import com.basejava.webapp.model.Resume;
+import com.basejava.webapp.storage.ArrayStorage;
+
 /**
- * Test for your ArrayStorage implementation
+ * Test for your com.basejava.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
-        r1.uuid = "uuid1";
+        r1.setUuid("uuid1");
         Resume r2 = new Resume();
-        r2.uuid = "uuid2";
+        r2.setUuid("uuid2");
         Resume r3 = new Resume();
-        r3.uuid = "uuid3";
+        r3.setUuid("uuid3");
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
 
-        System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.uuid));
+        System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         printAll();
-        ARRAY_STORAGE.delete(r1.uuid);
+        ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
         ARRAY_STORAGE.clear();
         printAll();
@@ -43,13 +48,13 @@ public class MainTestArrayStorage {
         System.out.println("Test 1. Delete all resumes with given uuid");
         ARRAY_STORAGE.clear();
         Resume r1 = new Resume();
-        r1.uuid = "first";
+        r1.setUuid("first");
         Resume r2 = new Resume();
-        r2.uuid = "second";
+        r2.setUuid("second");
         Resume r3 = new Resume();
-        r3.uuid = "second";
+        r3.setUuid("second");
         Resume r4 = new Resume();
-        r4.uuid = "third";
+        r4.setUuid("third");
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
@@ -62,7 +67,7 @@ public class MainTestArrayStorage {
         System.out.println("Test2. Delete non existing uuid");
         ARRAY_STORAGE.clear();
         Resume r1341314 = new Resume();
-        r1341314.uuid = "i dont care";
+        r1341314.setUuid("i dont care");
         ARRAY_STORAGE.save(r1341314);
         ARRAY_STORAGE.delete("blabla");
         printAll();
